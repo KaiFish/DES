@@ -101,6 +101,7 @@ S8 = np.array(  [[13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7],
 
 class DES:
     des = 0
+    mS = ""
     m = []
     k1 = []
     k2 = []
@@ -116,10 +117,13 @@ class DES:
         else:
             print("Invalid input, try again")
             DES()
+        getK()
+        getM()
 
     def getM(self):
         print("Input Message to Encrypt:")
-        self.m = input()
+        self.mS = input()
+        self.m = chunkIt(self.mS)
 
     def getK(self):
         print("Input (o)wn key or auto (g)enerate?")
@@ -145,6 +149,13 @@ class DES:
 
 
     def sanitize(self, key):
+        if len(key) < 64:               # pad given key if too short
+            x = 64 - len(key)
+            key = key + secrets.randbits(x)
+        elif len(key) > 64:             # cut given key if too long
+            key = key[0:63]
+
+        key = key.to_bytes(8, byteorder='big')
         return key
 
     def generate(self):
@@ -152,23 +163,16 @@ class DES:
         key = key.to_bytes(8, byteorder='big')
         return key
 
-
-
-
-
-def chunkIt(m):
-    chunks = []
-    while m != "":
-        s = ""
-        for x in range(8):
-            if m != "":
-                s = s + m[0]
-                m = m[1:]
-            else:
-                s = s + " "
-        chunks.append(s)
-    return chunks
-
-
-
-assert chunkIt("this is a very useless message indeed") == ['this is ', 'a very u', 'seless m', 'essage i', 'ndeed   ']
+    def chunkIt(m):
+        chunks = []
+        while m != "":
+            s = ""
+            for x in range(8):
+                if m != "":
+                    s = s + m[0]
+                    m = m[1:]
+                else:
+                    s = s + " "
+            s = s.to_bytes(8, byteorder = 'big')
+            chunks.append(s)
+        return chunks
