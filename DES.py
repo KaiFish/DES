@@ -1,7 +1,6 @@
 import codecs
 import secrets
 import numpy as np
-from typing import List
 
 #Permuted Choice 1
 PC1 =   [57, 49, 41, 33, 25, 17, 9,
@@ -157,10 +156,19 @@ class DES:
 
 
 
-def message_chunks(message: str) -> List[str]:
-    # TODO
-    pass
+def chunkIt(m):
+    chunks = []
+    while m != "":
+        s = ""
+        for x in range(8):
+            if m != "":
+                s = s + m[0]
+                m = m[1:]
+            else:
+                s = s + " "
+        chunks.append(s)
+    return chunks
 
 
 
-assert message_chunks("this is a very useless message indeed") == ['this is ', 'a very u', 'seless m', 'essage i', 'ndeed   ']
+assert chunkIt("this is a very useless message indeed") == ['this is ', 'a very u', 'seless m', 'essage i', 'ndeed   ']
