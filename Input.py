@@ -28,7 +28,18 @@ class Input:
         return b
 
     def chunk(m):
-        return [Input.charToBits(c) for c in m]
+        chunks = []
+        while m != "":
+            s = ""
+            for x in range(8):
+                if m != "":
+                    s = s + Input.charToBits(m[0])
+                    m = m[1:]
+                else:
+                    while len(s) < 64:
+                        s = s + '00000011'
+            chunks.append(s)
+        return chunks
 
     def setK(self):
         print("Input (o)wn key or auto (g)enerate?")

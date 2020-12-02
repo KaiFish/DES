@@ -2,10 +2,7 @@ import T
 
 class Key:
     def __init__(self, str):
-        self.KP = setKP(str)
-        self.c, self.d = setCD(self.KP)
-        self.keys = setKeys(self.c, self.d)
-        self.KN = setKN(self.keys)
+        self.keys = setKN(setKeys(setCD(setKP(str))))
 
     def setKP(str):
         KP = ""
@@ -42,3 +39,9 @@ class Key:
                 a = a + x[i-1]
             KN.append(a)
         return KN
+
+    def getKeys(self):
+         return self.keys
+
+    def invert(self):
+        self.keys.reverse()
