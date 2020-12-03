@@ -1,3 +1,4 @@
+#bits.py @author Kai Barclay 2020
 #all of the binary based functions for the program
 
 MAX = 2**64-1

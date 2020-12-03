@@ -1,7 +1,11 @@
-from Input import *
-from Key import Key
-from Mafs import Mafs
-from Bits import *
+#DES.py @author Kai Barclay 2020
+#main method here
+#run this as: python3 DES.py
+
+from user import *
+from key import Key
+from mafs import Mafs
+from bits import *
 import sys
 
 def main():     #program flow

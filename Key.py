@@ -1,5 +1,7 @@
+#key.py @author Kai Barclay 2020
+
 import T
-from Bits import leftRotate
+from bits import leftRotate
 
 #this class takes an initial key and aquires the complete keyset from it
 

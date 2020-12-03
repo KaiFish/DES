@@ -1,8 +1,11 @@
-from Bits import *
-from Input import *
-from Mafs import *
+#tests.py @Kai Barclay 2020
+#it's a testbed, of course there's no organization, what did you expect?
+
+from bits import *
+from user import *
+from mafs import *
 from DES import *
-from Key import *
+from key import *
 
 # many many many thanks to the late J. Orlin Grabbe for his very detailed explaination of DES with examples of every single step
 # his paper can be found here: http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm, as the original publication has ceased to exist

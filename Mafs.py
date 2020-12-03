@@ -1,6 +1,8 @@
+#mafs.py @author Kai Barclay 2020
+
 import numpy as np
 import T
-from Bits import *
+from bits import *
 
 #this class, given a message and an initial key, performs the Fiestel functions
 

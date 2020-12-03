@@ -1,3 +1,6 @@
+#T.py @author Kai Barclay 2020
+#original tables IBM? NSA? NBS? Horst Feistel? all had a part
+
 import numpy as np
 
 #all of the various tables necessary for the execution of DES

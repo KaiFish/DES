@@ -1,9 +1,11 @@
+#user.py @author Kai Barclay 2020
+
 import secrets
 import sys
 
 #this class handles initial/important user input
 
-class Input:
+class User:
     def __init__(self):
         print("Do you want to (e)ncrypt or (d)ecrypt?")
         crypt = input()
@@ -26,7 +28,7 @@ class Input:
             self.single = False     #triple DES
         else:
             print("Invalid input, try again")
-            Input()
+            User()
         self.setM()         #get plain/cipher text to use
         self.setK()         #get keys
 
