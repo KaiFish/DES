@@ -1,8 +1,10 @@
 import T
+import Bits
 
 class Key:
     def __init__(self, str):
-        self.keys = setKN(setKeys(setCD(setKP(str))))
+        assert len(str) == 64
+        self.keys = Key.setKN(Key.setKeys(*Key.setCD(Key.setKP(str))))
 
     def setKP(str):
         KP = ""
@@ -11,19 +13,19 @@ class Key:
         return KP
 
     def setCD(KP):
-        c = []
-        d = []
+        cs = []
+        ds = []
         c0 = KP[:28]
         d0 = KP[28:]
-        c.append(c0)
-        d.append(d0)
+        cs.append(c0)
+        ds.append(d0)
         for i in T.BS:
             for x in range(i):
                 c0 = Bits.leftRotate(c0)
                 d0 = Bits.leftRotate(d0)
-            c.append(c0)
-            d.append(d0)
-        return c, d
+            cs.append(c0)
+            ds.append(d0)
+        return cs, ds
 
     def setKeys(c, d):
         k = []
