@@ -1,29 +1,45 @@
 from Input import *
 from Key import Key
 from Mafs import Mafs
-import Bits
+from Bits import *
+import sys
 
 def main():
-    i = Input()
-    k1 = Key(i.getK1())
-    if i.isSingle() != True:
-        k2 = Key(i.getK2())
-    print("Message is " + i.getMessage())
-    encrypt = ""
-    for m in i.chunked():
-        math = Mafs(m, k1)
-        encrypt = encrypt + math.getFP()
-    print("Encrypted as " + encrypt)
-    print("Decrypting...")
-    c = Input.chunk(encrypt)
-    k1.invert()
-    decrypt = ""
-    for x in c:
-        math = Mafs(x, k1)
-        decrypt = decrypt + math.getFP()
-    print("Decrypted as " + Bits.toChar(decrypt))
+    print("Welcome to DES.")
+    end = False
+    while end == False:
+        i = Input()
+        if i.isEncryption() == True:
+            print("Encrypting....")
+            print("Message: " + i.getMessage())
+            if i.isSingle() == True:
+                print("Key: " + i.getK1())
+                e = DES(i.getMessage(), i.getK1())
+                print("Cipher: " + e)
+                end = option1(e, i)
+            else:
+                print("Key 1: " + i.getK1())
+                print("Key 2: " + i.getK2())
+                e = DES3(i.getMessage(), i.getK1(), i.getK2())
+                print("Cipher: " + e)
+                end = option1(e, i)
+        else:
+            print("Decrypting....")
+            print("Cipher Text: " + i.getMessage())
+            if i.isSingle() == True:
+                print("Key: " + i.getK1())
+                u = unDES(i.getMessage(), i.getK1())
+                print("Plain Text: " + toChar(u))
+                end = option2()
+            else:
+                print("Key 1: " + i.getK1())
+                print("Key 2: " + i.getK2())
+                e = DES3(i.getMessage(), i.getK1(), i.getK2())
+                print("Cipher: " + e)
+                end = option2()
 
-def DES(m, k):          #base encryption given message, key
+
+def DES(m, k):          #encryption given message, key
     if str.isdecimal(m) == False:
         c = chunk(m)
     else:
@@ -35,9 +51,12 @@ def DES(m, k):          #base encryption given message, key
         encrypt = encrypt + math.getFP()
     return encrypt
 
-def unDES(m, k):        #base decryption given ciphertext (in binary), key
+def unDES(m, k):        #decryption given ciphertext (in binary or alpha), key
     key = Key(k)
-    c = chop(m)
+    if str.isdecimal(m) == False:
+        c = chunk(m)
+    else:
+        c = chop(m)
     key.invert()
     decrypt = ""
     for i in range(len(c)):
@@ -62,6 +81,42 @@ def chop(x):            #splits binary string into list of 64 bit chunks
         split.append(s)
     return split
 
+def option1(e, i):
+    x = 'a'
+    end = False
+    while x == 'a':
+        print("Do you wish to (d)ecipher, (r)estart, or (q)uit?")
+        x = input()
+        if x == 'd':
+            print("Decrypting....")
+            if i.isSingle():
+                d = unDES(e, i.getK1())
+            else:
+                d = unDES3(e, i.getK1(), i.getK2())
+            print("Deciphered: " + toChar(d))
+        elif x == 'r':
+            break
+        elif x == 'q':
+            sys.exit(0)
+        else:
+            print("Invalid input, try again")
+            x = 'a'
+    return end
+
+def option2()
+    x = 'a'
+    end = False
+    while x == 'a':
+        print("Do you wish to (r)estart, or (q)uit?")
+        x = input()
+        if x == 'r':
+            break
+        elif x == 'q':
+            sys.exit(0)
+        else:
+            print("Invalid input, try again")
+            x = 'a'
+    return end
 
 if __name__ == '__main__':
     main()

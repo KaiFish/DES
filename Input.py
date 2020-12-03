@@ -1,51 +1,80 @@
 import secrets
+import sys
+
 class Input:
     def __init__(self):
-        # print("Single (1) or Triple (3)?")
-        # des = int(input())
-        # if des == 1:
-        #     print("Using Single DES")
-        #     self.single = True
-        # elif des == 3:
-        #     print("Using Triple DES")
-        #     self.single = False
-        # else:
-        #     print("Invalid input, try again")
-        #     Input()
-        # self.setM()
-        # self.setK()
-        self.single = True
-        self.mS = "hello world"
-        self.m = Input.chunk(self.mS)
-        self.k1 = Input.generate()
+        print("Do you want to (e)ncrypt or (d)ecrypt?")
+        crypt = input()
+        if crypt == 'e':
+            self.encrypt = True
+        elif crypt == 'd':
+            self.encrypt = False
+        elif crypt == 'q':
+            sys.exit(0)
+        else:
+            print("Invalid input, try again")
+            Input()
+        print("Single (1) or Triple (3) DES?")
+        des = int(input())
+        if des == 1:
+            print("Using Single DES")
+            self.single = True
+        elif des == 3:
+            print("Using Triple DES")
+            self.single = False
+        else:
+            print("Invalid input, try again")
+            Input()
+        self.setM()
+        self.setK()
+        # self.single = True
+        # self.mS = "hello world"
+        # self.m = Input.chunk(self.mS)
+        # self.k1 = Input.generate()
 
 
     def setM(self):
-        print("Input Message to Encrypt:")
+        if self.encrypt:
+            print("Input Message to Encrypt:")
+        else:
+            print("Input Message to Decrypt:")
+            print("(currently can handle binary and alpha strings)")
         self.mS = input()
-        self.m = Input.chunk(self.mS)
 
     def setK(self):
-        print("Input (o)wn key or auto (g)enerate?")
-        opt = input()
-        if opt == "o":
+        if self.encrypt:
+            print("Input (o)wn key or auto (g)enerate?")
+            opt = input()
+            if opt == "o":
+                print("Warning: Keys are ensured to be 64 bits. Your key will be modified if it is not 64 bits.")
+                if self.single:
+                    print("Input Key:")
+                    self.k1 = sanitize(input())
+                else:
+                    print("Input Key 1:")
+                    self.k1 = sanitize(input())
+                    print("Input Key 2:")
+                    self.k2 = sanitize(input())
+            elif opt == "g":
+                if self.single:
+                    self.k1 = generate()
+                else:
+                    self.k1 = generate()
+                    self.k2 = generate()
+            else:
+                print("Invalid input, try again")
+                self.setK()
+        else:
+            print("Provide key(s) to use:")
+            print("Warning: Key must be 64 bits for proper decryption!")
             if self.single:
                 print("Input Key:")
-                self.k1 = DES.sanitize(input())
+                self.k1 = sanitize(input())
             else:
                 print("Input Key 1:")
-                self.k1 = DES.sanitize(input())
+                self.k1 = sanitize(input())
                 print("Input Key 2:")
-                self.k2 = DES.sanitize(input())
-        elif opt == "g":
-            if self.single:
-                self.k1 = Input.generate()
-            else:
-                self.k1 = Input.generate()
-                self.k2 = Input.generate()
-        else:
-            print("Invalid input, try again")
-            self.setK()
+                self.k2 = sanitize(input())
 
     def getK1(self):
         return self.k1
@@ -59,11 +88,11 @@ class Input:
     def getMessage(self):
         return self.mS
 
-    def chunked(self):
-        return self.m
-
     def isSingle(self):
         return self.single
+
+    def isEncryption(self):
+        return self.encrypt
 
 
 def charToBits(c):

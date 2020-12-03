@@ -34,7 +34,7 @@ def toBits(num, bits):
 def toChar(bin):
     s = ""
     while bin != "":
-        x = bin[0:7]
+        x = bin[0:8]
         s = s + chr(int(x, 2))
-        bin = bin[7:]
+        bin = bin[8:]
     return s
