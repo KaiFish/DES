@@ -2,6 +2,7 @@
 #main method here
 #run this as: python3 DES.py
 
+from user import User
 from user import *
 from key import Key
 from mafs import Mafs
@@ -12,7 +13,7 @@ def main():     #program flow
     print("Welcome to DES.")
     end = False
     while end == False:
-        i = Input()
+        i = User()
         if i.isEncryption() == True:    #Encrypting
             print("Encrypting....")
             print("Message: " + i.getMessage())

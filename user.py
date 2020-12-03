@@ -118,11 +118,14 @@ def chunk(m):   #converts binary string to 64-bit chunks in list
 
 def sanitize(key):  #make sure user is not stupid
     b = ''
-    for c in key:
-        b = b + charToBits(c)
+    if str.isdecimal(key) == False:
+        for c in key:
+            b = b + charToBits(c)
+    else:
+        b = b + key
     if len(b) < 64:               # pad given key if too short
         x = 64 - len(b)
-        b = b + str(secrets.randbits(x))
+        b = b + format(secrets.randbits(x), 'b')
     elif len(b) > 64:             # cut given key if too long
         b = b[0:63]
     return b
