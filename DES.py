@@ -4,7 +4,7 @@ from Mafs import Mafs
 from Bits import *
 import sys
 
-def main():
+def main():     #program flow
     print("Welcome to DES.")
     end = False
     while end == False:
@@ -64,10 +64,10 @@ def unDES(m, k):        #decryption given ciphertext (in binary or alpha), key
         decrypt = decrypt + math.getFP()
     return decrypt
 
-def DES3(m, k1, k2):
+def DES3(m, k1, k2): #triple DES encryption
     return DES(unDES(DES(m, k1), k2), k1)
 
-def unDES3(m, k1, k2):
+def unDES3(m, k1, k2): #triple DES decryption
     return unDES(DES(unDES(m, k1), k2), k1)
 
 def chop(x):            #splits binary string into list of 64 bit chunks
@@ -81,7 +81,7 @@ def chop(x):            #splits binary string into list of 64 bit chunks
         split.append(s)
     return split
 
-def option1(e, i):
+def option1(e, i): #user menu A
     x = 'a'
     end = False
     while x == 'a':
@@ -103,7 +103,7 @@ def option1(e, i):
             x = 'a'
     return end
 
-def option2()
+def option2() #user menu B
     x = 'a'
     end = False
     while x == 'a':
