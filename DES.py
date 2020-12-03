@@ -18,8 +18,8 @@ def main():     #program flow
                 print("Cipher: " + e)
                 end = option1(e, i)
             else:                           #triple DES
-                print("Key 1: " + i.getK1())
-                print("Key 2: " + i.getK2())
+                print("Key 1:  " + i.getK1())
+                print("Key 2:  " + i.getK2())
                 e = DES3(i.getMessage(), i.getK1(), i.getK2())
                 print("Cipher: " + e)
                 end = option1(e, i)
@@ -103,7 +103,7 @@ def option1(e, i): #user menu A
             x = 'a'
     return end
 
-def option2() #user menu B
+def option2(): #user menu B
     x = 'a'
     end = False
     while x == 'a':

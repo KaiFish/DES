@@ -46,7 +46,7 @@ class Input:
             if opt == "o":      #user will provide key(s)
                 print("Warning: Keys are ensured to be 64 bits. Your key will be modified if it is not 64 bits.")
                 #ie: don't trust users
-                if self.single:
+                if self.single == True:
                     print("Input Key:")
                     self.k1 = sanitize(input())
                 else:
@@ -55,7 +55,7 @@ class Input:
                     print("Input Key 2:")
                     self.k2 = sanitize(input())
             elif opt == "g":    #program will generate key(s)
-                if self.single:
+                if self.single == True:
                     self.k1 = generate()
                 else:
                     self.k1 = generate()
@@ -79,10 +79,10 @@ class Input:
         return self.k1
 
     def getK2(self):    #return key2 if it exists
-        if self.single:
+        if self.single == False:
             return self.k2
         else:
-            return null
+            return None
 
     def getMessage(self):   #return user provided text
         return self.mS
@@ -120,7 +120,7 @@ def sanitize(key):  #make sure user is not stupid
         b = b + charToBits(c)
     if len(b) < 64:               # pad given key if too short
         x = 64 - len(b)
-        b = b + secrets.randbits(x)
+        b = b + str(secrets.randbits(x))
     elif len(b) > 64:             # cut given key if too long
         b = b[0:63]
     return b
