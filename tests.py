@@ -81,5 +81,47 @@ FP2 = setFP(rl2)
 
 assert FP2 == m
 
+#triple DES
+x = '0000000100100011010001010110011110001001101010111100110111101111'
+
+
+k1 = '0011000011100101011101001101001101101001100100110101100010010011'
+Key1 = Key(k1)
+k2 = '1110011010110100010111111100001110110001111100110001011010000011'
+Key2 = Key(k2)
+
+#encrypt
+a = Mafs(x, Key1).getFP()
+Key2.invert()
+b = Mafs(a, Key2).getFP()
+c = Mafs(b, Key1).getFP()
+
+#decrypt
+Key1.invert()
+Key2.invert()
+d = Mafs(c, Key1).getFP()
+assert d == b
+e = Mafs(d, Key2).getFP()
+assert e == a
+f = Mafs(e, Key1).getFP()
+
+assert f == x
+
+
+#long message tests
+m = "hello world"
+bin = '01101000011001010110110001101100011011110010000001110111011011110111001001101100011001000000001100000011000000110000001100000011'
+q = unDES(DES(m, k1), k1)
+assert q == bin
+
+
+#triple DES test 2
+
+assert unDES(DES(unDES(DES(unDES(DES(m, k1), k2), k1), k1), k2), k1) == bin
+
+
+w = DES3(m, k1, k2)
+k = unDES3(w, k1, k2)
+assert k == bin
 
 print("tests pass :tada:")
