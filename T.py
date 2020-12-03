@@ -1,5 +1,7 @@
 import numpy as np
 
+#all of the various tables necessary for the execution of DES
+
 #Permuted Choice 1
 PC1 =   [57, 49, 41, 33, 25, 17, 9,
         1, 58, 50, 42, 34, 26, 18,

@@ -9,29 +9,29 @@ def main():     #program flow
     end = False
     while end == False:
         i = Input()
-        if i.isEncryption() == True:
+        if i.isEncryption() == True:    #Encrypting
             print("Encrypting....")
             print("Message: " + i.getMessage())
-            if i.isSingle() == True:
+            if i.isSingle() == True:        #single DES
                 print("Key: " + i.getK1())
                 e = DES(i.getMessage(), i.getK1())
                 print("Cipher: " + e)
                 end = option1(e, i)
-            else:
+            else:                           #triple DES
                 print("Key 1: " + i.getK1())
                 print("Key 2: " + i.getK2())
                 e = DES3(i.getMessage(), i.getK1(), i.getK2())
                 print("Cipher: " + e)
                 end = option1(e, i)
-        else:
+        else:                           #Decrypting
             print("Decrypting....")
             print("Cipher Text: " + i.getMessage())
-            if i.isSingle() == True:
+            if i.isSingle() == True:        #single DES
                 print("Key: " + i.getK1())
                 u = unDES(i.getMessage(), i.getK1())
                 print("Plain Text: " + toChar(u))
                 end = option2()
-            else:
+            else:                           #triple DES
                 print("Key 1: " + i.getK1())
                 print("Key 2: " + i.getK2())
                 e = DES3(i.getMessage(), i.getK1(), i.getK2())
