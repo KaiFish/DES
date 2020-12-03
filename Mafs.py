@@ -26,7 +26,7 @@ def setRL(IP, k):
     for i in range(16):
         l.append(r[i])
         r.append(Bits.xor(l[i], feistel(r[i], k[i])))
-    rl = "" + r[15] + l[15]
+    rl = "" + r[16] + l[16]
     return rl
 
 def setFP(rl):
